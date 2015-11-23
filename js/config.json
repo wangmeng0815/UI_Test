@@ -1,0 +1,9 @@
+{
+    "globalURL": "123s",
+    "css": [
+	        {"value": "base.js"},
+	        {"value": "123.css"}],
+    "js": [
+    		{"value": "456.js"},
+    		{"value": "567.js"}]
+}

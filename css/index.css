@@ -1,0 +1,260 @@
+/*弹出层 */
+ .loading_back{
+	width:100%;
+	background: #fff;
+	position: absolute;
+	top:48px;
+	z-index: 1999;
+}
+.ui_loading{
+	min-height:300px;
+	min-width:400px;
+	width:auto;
+	z-index:2000;
+	position:fixed;
+}
+
+
+
+@charset "utf-8";
+
+/* CSS Document */
+.ui_dialog_mask{
+    width: 100%;
+	height: 100%;
+	background: #000;
+	opacity: .1;
+	position: absolute;
+	z-index: 1040;
+	left: 0;
+	top: 0;
+}
+/* default */
+.ui_dialog {
+	max-width: 360px;
+	min-width: 156px;
+	width: auto;
+	position: fixed;
+	z-index: 1995;
+	visibility: visible;
+	background: #d9edf7;
+	color:#31708f;
+	font-family: microsoft yahei;
+}
+.ui_close {
+	float: right;
+	color: #c4d6bc;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #adbdc5;
+	background: none repeat scroll 0 0 transparent;*/
+	cursor: pointer;
+    border: 0 none;
+    margin-top: -2px;
+	padding-left: 5px;
+}
+
+/* warn */
+.w_ui_dialog {
+	max-width: 360px;
+	min-width: 156px;
+	width: auto;
+	position: fixed;
+	z-index: 1995;
+	visibility: visible;
+	background: #fcf8e3;
+	font-family: microsoft yahei;
+	color: #d09501;
+}
+.w_ui_close {
+	float: right;
+	color: #d09501;
+	opacity:.5;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #c9c6b5;
+	background: none repeat scroll 0 0 transparent;
+	cursor: pointer;
+    border: 0 none;
+    margin-top: -4px;
+	margin-left: 20px;
+	font-size:16px;
+}
+.w_ui_close:hover{
+	opacity:.8
+}
+.w_ui_dialogbox_inner{
+	background:url(../images/dialogMsg/warning_fade.png) no-repeat;
+}
+/* success */
+.s_ui_dialog {
+	max-width: 360px;
+	min-width: 156px;
+	width: auto;
+	position: fixed;
+	z-index: 1995;
+	visibility: visible;
+	/*background: #dff0d8;
+	border: 1px solid #d6e9c6;
+	color: #3c763d;*/
+	background:#dff0d8;
+	border:1px solid #d6e9c6;
+	color: #3c763d;
+	font-family: microsoft yahei;
+	
+}
+.s_ui_close {
+	float: right;
+	color: #c4d6bc;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #b2c0ac;
+	cursor: pointer;
+	background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    margin-top: -4px;
+	padding-left: 20px;
+	font-size:16px;
+} 
+.s_ui_close:hover{
+	color:#c7c2a3;
+}
+.s_ui_dialogbox_inner{
+	background:url(../images/dialogMsg/finish_fade.png) no-repeat;
+}
+/* fail */
+.d_ui_dialog {
+	max-width: 360px;
+	min-width: 156px;
+	width: auto;
+	position: fixed;
+	z-index: 1995;
+	visibility: visible;
+	background: #f2dede;
+	border: 1px solid #ebccd1;
+	font-family: microsoft yahei;
+	color: #a94442;
+}
+.d_ui_close {
+	float: right;
+	color: #d7c1c1;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #c1b1b1;
+	cursor: pointer;
+	background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    margin-top: -2px;
+	padding-left: 5px;
+}
+.d_ui_close:hover {
+	color:#c7c2a3;
+}
+.d_ui_dialogbox_inner{
+	background:url(../images/dialogMsg/error_fade.png) no-repeat;
+}
+
+
+.ui_dialogbox {
+	position: relative;
+	padding:10px 10px 10px 20px;
+	min-width:185px;
+}
+.ui_dialogbox_inner {
+	padding: 4px 0 2px 32px;
+}
+
+/* .ui_icon {
+	width: 32px;
+	height: 32px;
+	min-width: 32px;
+	min-height: 32px;
+	float: left;
+	text-align: center;
+}
+
+.ui_icon img {
+	width: 100%;
+	height: 100%;
+} */
+.ui_icon {
+	width: 16px;
+	height: 16px;
+	margin-right: 10px;
+}
+.ui_text {
+	font-size:12px;
+	max-width: 300px;
+	float: left;
+}
+
+.ui_clear {
+	clear: both;
+}
+
+/* autoclose without mask */
+
+.autoui-default {
+	margin-right:16px;
+	height:30px;
+	min-width:100px;
+	padding:3px 10px 0;
+	border:solid 1px #bce8f1;
+	background:#d9edf7 url(../images/btn_close_blue.png) no-repeat right 8px top 8px;
+	line-height:20px;
+	color:#31708f;
+}
+/*
+.autoui-default:after {
+	content:'\f00d';
+	color:#adbdc5;
+}
+*/
+.autoui-success {
+	margin-right:16px;
+	height:30px;
+	min-width:100px;
+	padding:3px 10px 0;
+	border:solid 1px #d6e9c6;
+	background:#dff0d8 url(../images/btn_close_green.png) no-repeat right 8px top 8px;
+	line-height:20px;
+	color:#3c763d;
+}
+/*
+.autoui-success:after {
+	content:'\f00d';
+	color:#b2c0ac;
+}
+*/
+.autoui-warn {
+	margin-right:16px;
+	height:30px;
+	min-width:100px;
+	padding:3px 10px 0;
+	border:solid 1px #faebcc;
+	background:#fcf8e3 url(../images/btn_close_yellow.png) no-repeat right 8px top 8px;
+	line-height:20px;
+	color:#8a6d3b;
+}
+/*
+.autoui-warn:after {
+	content:'\f00d';
+	color:#c9c6b5;
+}
+*/
+.autoui-fail {
+	margin-right:16px;
+	height:30px;
+	min-width:100px;
+	padding:3px 10px 0;
+	border:solid 1px #ebccd1;
+	background:#f2dede url(../images/btn_close_red.png) no-repeat right 8px top 8px;
+	line-height:20px;
+	color:#a94442;
+}
+/*
+.autoui-fail:after {
+	content:'\f00d';
+	color:#c1b1b1;
+}
+*/
