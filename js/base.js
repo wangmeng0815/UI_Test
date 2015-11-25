@@ -134,7 +134,7 @@ $.field = {
 		var d = $("<div class='col-md-" + n + " pull-right'></div>");
 		
 		$.each(buttons, function(index, obj) {
-			var btn = $("<a id='" + obj.id + "' class='btn btn-" + obj.type + "'>" + obj.value + "</a>");
+			var btn = $("<a id='" + obj.id + "' class='btn aBtn btn-" + obj.type + "'>" + obj.value + "</a>");
 			btn.appendTo(d);
 		});
 		

@@ -9,14 +9,18 @@
 			var defaults = {
 				style : 'modal-lg',//
 				title : null,
-				tableID: "list",
+				tableID: "temp",
+				pagerName: "temp",
 				content: null,
 				button: null//[{id:'confirm',style:'btn-primary',value:'确定'}]
 			};
 			$.extend(defaults, options);
 			var objLayer = createlayer(defaults);
 			
-			gridInit();
+			if(typeof gridInit == 'function' ){
+				gridInit();
+			}
+			
 			$(document.body).addClass("modal-open");
 			$('#myModal').modal('show');
 		}
@@ -46,14 +50,14 @@
 			header.append(close).append(head).appendTo(content);
 		}
 		
-//		var contentBody = "";
-//		if(defaults.tableID != "list"){
-//			contentBody = $("<div class='modal-body'><table id="+ defaults.tableID +"></table></div>");
-//			
-//		}else{
-//			contentBody = $("<div class='modal-body'></div>");
-//		}
-		var contentBody = $("<div class='modal-body'><table id='list'></table></div>");
+		var contentBody = $("<div class='modal-body'></div>");
+		if(defaults.tableID != "temp"){
+			var tableTemp = "<table id='"+ defaults.tableID +"'></table>";
+			var pager = "<div id='"+ defaults.pagerName +"'></div>"
+			$(tableTemp).appendTo(contentBody);
+			$(pager).appendTo(contentBody);
+		}
+		
 		contentBody.append(defaults.content).appendTo(content);
 		
 		if(defaults.button){
