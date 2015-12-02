@@ -1,165 +1,178 @@
-$.createQueryForm = function (div, obj){
-	var qf = $("<form class='form-horizontal '></form>");
-	
-	div.attr("action", obj.url);
-	div.attr("method", obj.mtype);
-	var num = Math.floor(12/obj.number);
-	var row = $("<div class='row'></div>");
-	var btnWidth = 2;
-	if(obj.isTab){
-		btnWidth = 3;
+/*
+ * 基类  
+ * Editor ：wm
+ * time：2015-11-30
+ * function： 方便每个页面调用
+ */
+function Base(){}
+
+Base.prototype.num="3";					//页面每行的控件个数
+Base.prototype.popGrid = "list";		//表格ID
+Base.prototype.popPager = "grid-pager";	//翻页ID
+
+Base.prototype.popButton = [{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}]; //弹出框按妞
+
+
+Base.prototype.queryForm = "query-form"; //搜索框ID
+Base.prototype.queryButton = [ { id:'search', value:'查询', type:'primary'},{ id:'reset', value:'重置', type:'reset'}];
+Base.prototype.condition = [
+      	     { label: 'User Name', name: 'user_name', type: 'text'},
+      	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项'}, {key: '10002', value: '第二项'}]},
+    	     { label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' },
+    	     { label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' },
+    	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' },
+    	     { label: 'Radio ID3', x: '5', y: '7', name: 'test-radio', type: 'radio', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] },
+    	     { label: '测试checkbox', x: '5', y: '7', name: 'test-checkbox', type: 'checkbox', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] }
+    	];
+
+//快速搜索框 初始化
+Base.prototype.initCondition = function(tab,strMethod,strAction){
+	if(tab!=null&& tab== true){
+		tab = true;
 	}
-	var conWidth = 12-btnWidth;
-	var condition = $("<div class='col-md-" + conWidth + "'></div>");
-	var hideDiv = $("<div id='hideDiv' style='display:none'></div>");
-	var buttons = obj.buttons;
-	$.each(obj.fieldModel, function(index, value){
-		
-		if(obj.fieldModel.length<=obj.number&&index==(obj.number-1)){
-			row.append($.field.button(obj.buttons,false));
-		}
-		
-		if(value.type!="checkbox"&&value.type!="radio"){
-			
-			if(index%obj.number==0&&index!=0){//当需要换行的时候 ->进入
-				
-				row.append(condition);
-				
-				if(index==obj.number){
-					row.append($.field.button(obj.buttons,true,btnWidth));
-					row.appendTo(qf);
-				}else{
-					row.appendTo(hideDiv);
-				}
-				
-				row = $("<div class='row'></div>");
-				condition = $("<div class='col-md-"+ conWidth +"'></div>");
-			}
-		
-			if(value.type == 'text') {
-				condition.append($.field.text(value,num,obj.x,obj.y));//.appendTo(row)
-				row.append(condition);
-			}else if(value.type == 'selected'){
-				condition.append($.field.selected(value,num,obj.x,obj.y));//.appendTo(row);
-				row.append(condition);
-			}
-			
-		}else{ // (value.type=="checkbox"||value.type=="radio"){
-			
-			if(value.type=="checkbox"){//
-				
-				if(obj.z==0){
-					row.appendTo(hideDiv);
-					row = $("<div class='row'></div>");
-				}
-				
-				row.append($.field.checkbox(value,12-obj.z));
-			}else{//radioButton
-				row.appendTo(hideDiv);
-			
-				row = $("<div class='row'></div>");
-				
-				row.append($.field.radio(value,obj.z));
-				
-			}
-		}
-		
-		if(index < obj.number){
-			row.appendTo(qf);
-		}else{
-			row.appendTo(hideDiv);
-		}
-		
+	
+	$.createQueryForm($("#"+ this.queryForm), {
+    	action: '',
+    	method: 'post',
+    	number:this.num, 	//text select每行的个数
+    	isTab: tab,
+    	x:6, 	//label 宽度
+    	y:6,	//input 宽度 (text select)
+    	z:4,	//radio 宽度  checkbox宽度=12-z
+    	fieldModel: this.condition,
+    	buttons: this.queryButton
+    });
+	
+};
+
+//弹出框(不带表格)
+Base.prototype.popLayer = function(text,btnList){
+	
+	$.popLayer({
+	    title : text,
+	    buttons: this.popButton,
+	    tableID: table,
+	    pagerName: pager,
+	    content:''
 	});
-	
-	qf.append(hideDiv).appendTo(div);	
-//	qf.appendTo(div);
 }
 
-$.field = {
-	text: function(f,n,x,y) {
-		var f_text =  "<div class='col-md-"+ n +" '>"  
-						+ "<label class='col-sm-"+ x +" control-label' for='form-field-1'> " + f.label + " </label>"
-				       	+ "<input type='"+ f.type +"' id='" + f.id + "' class='col-md-"+ y +"' name='" + f.name + "'/>"
-				      + "</div>";
-		
-		return $(f_text);
-	},
+//弹出框 (带表格  带查询)
+Base.prototype.popLayerWithTable = function(text,o){
+	var div = "<div id='"+ this.queryForm +"' class='deline'></div>";
 	
-	selected: function(f,n,x,y) {
-		var temp="<div class='col-md-"+ n +"'></div>"
-		var d = $(temp);
-		var label = "<label class='col-md-"+ x +" control-label' for='form-field-select-1'>" + f.label + "</label>";
-		var selected = $("<select class='col-md-"+ y +"' id='" + f.id + "' name='" + f.name + "'></select>");
-		selected.append($("<option value=''></option>"))
-		$.each(f.options, function(index, opt){
-			selected.append($("<option value='"+opt.key+"'>"+opt.value+"</option>"));
-		});
-		
-		return d.append(label).append(selected);
-	},
-	
-	checkbox: function(f,n) {
-		var d = $("<div class='col-md-"+ n +" '></div>");
-		var label = "<label class='col-md-" + f.x + " control-label'>" + f.label + "</label>";
-		var checkDiv=$("<div class='col-md-" + f.y + "'></div>");
-		d.append(label);
-		$.each(f.options, function(index, opt){
-			var span = $("<span class='bus-check'></span>");
-			var chx = $("<input type='" + f.type + "' name='" + f.name + "' id='" + opt.id + "'  />");
-			var title = $("<label class='check-label'>" + opt.value + "</label>");
-			span.append(chx).append(title);
-			checkDiv.append(span);
-		});
-		
-		return d.append(checkDiv);
-	},
-	radio : function(f,n){
-		var d = $("<div class='col-md-" + n + "'></div>");
-		var label = $("<label class='control-label col-md-"+ f.x +"'>" + f.label + "</label>");
-		var radioDiv = $("<div class='col-md-" + f.y + "'></div>");
-		d.append(label);
-		$.each(f.options, function(index, opt) {
-			var span = $("<span class='bus-check'></span>");
-			var radio = $("<input type='radio' name='"+ f.name +"' id='" + opt.id + "' />");
-			var title = $("<label class='check-label'>" + opt.value + "</label>");
-			span.append(radio).append(title);
-			radioDiv.append(span);
-		});
-		
-		return d.append(radioDiv);
-		
-	},
-	button : function(buttons,more,n){
-		var d = $("<div class='col-md-" + n + " pull-right'></div>");
-		
-		$.each(buttons, function(index, obj) {
-			var btn = $("<a id='" + obj.id + "' class='btn aBtn btn-" + obj.type + "'>" + obj.value + "</a>");
-			btn.appendTo(d);
-		});
-		
-		if(more){
-			var aMore = $("<a class='more'>更多<i class=' icon-angle-down'></i></a>");
-			
-			aMore.appendTo(d);
-			
-			aMore.on('click',function() {
-				var temp = $(this).closest('form').find('#hideDiv');
-				if($(temp).attr("style")=="display:none"){
-					$(temp).attr("style","display:block");
-					$(this).text("收起");
-				}else{
-					$(temp).attr("style","display:none");
-					$(this).text("更多");
-				}
-			});	
-			
+	$.popLayer({
+	    title : text,
+	    buttons: this.popButton,
+	    tableID: this.popGrid,
+	    pagerName: this.popPager,
+	    content: div,
+	    _obj:o
+	});
+}
+
+Base.prototype.gridInit = function(){
+	var that = this;
+	jQuery("#"+ that.popGrid).jqGrid(
+      {
+        datatype : "local",
+        width: $("#"+ that.popGrid).parent().width(),
+        autowidth: true,
+        height:350,
+        colNames : [ 'Inv No', 'Date', 'Client', 'Amount', 'Tax','Total', 'Notes' ],
+        colModel : [ 
+                     {name : 'id',index : 'id',width : 60,sorttype : "int"}, 
+                     {name : 'invdate',index : 'invdate',width : 150,sorttype : "date"}, 
+                     {name : 'name',index : 'name',width : 100}, 
+                     {name : 'amount',index : 'amount',width : 80,align : "right",sorttype : "float"}, 
+                     {name : 'tax',index : 'tax',width : 100,align : "right",sorttype : "float"}, 
+                     {name : 'total',index : 'total',width : 180,align : "right",sorttype : "float"}, 
+                     {name : 'note',index : 'note',width : 150,sortable : false} 
+                   ],
+        multiselect : true,
+//      rowNum : 10,
+//      rowList: [10, 20, 30],
+        pager: "#"+ that.popPager,
+//      caption : "Manipulating Array Data"
+		loadComplete : function(){
+			var table = this;
+			setTimeout(function(){
+				that.gridPage(table);
+			}, 0);
 		}
-		return d;
-	}
-	
+      });
+  	var mydata = [ 
+                 {id : "1",invdate : "2007-10-01",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
+                 {id : "2",invdate : "2007-10-02",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
+                 {id : "3",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
+                 {id : "4",invdate : "2007-10-04",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
+                 {id : "5",invdate : "2007-10-05",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
+                 {id : "6",invdate : "2007-09-06",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
+                 {id : "7",invdate : "2007-10-04",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
+                 {id : "8",invdate : "2007-10-03",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
+                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
+                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"} 
+               ];
+  	for ( var i = 0; i <= mydata.length; i++){
+    	jQuery("#"+ that.popGrid).jqGrid('addRowData', i + 1, mydata[i]);
+  	}
 }
 
-    
+
+//右上角提示
+Base.prototype.gritter = function( word, classType){
+	var css = "gritter-light ";
+	
+	if(classType == "success"){
+		css += "gritter-success";
+	}else if(classType == "warn"){
+		css += "gritter-warning";
+	}else if(classType == "error"){
+		css += "gritter-error";
+	}else{
+		css += "gritter-info";
+	}
+	//右上角提示（auto）
+	$.gritter.add({
+		//title: 'This is a notice without an image!',
+		text: word,
+		class_name: css
+	});
+    	
+}
+
+//遮罩提示
+Base.prototype.autoclose = function(Msg, classType){
+	$.autoclose({
+//		    icon : ctx+'/common/images/autoclose/fail.png',
+			type : classType,  //成功
+//			type : "warn",     //提示
+//			type : "fail",	   //失败 
+		    msg:	Msg, 
+		    second:2000
+		});
+}
+
+//表格翻页方法
+Base.prototype.gridPage = function(table){
+
+	var replacement = 
+		{
+			'ui-icon-seek-first' : 'ace-icon fa fa-angle-double-left bigger-140',
+			'ui-icon-seek-prev' : 'ace-icon fa fa-angle-left bigger-140',
+			'ui-icon-seek-next' : 'ace-icon fa fa-angle-right bigger-140',
+			'ui-icon-seek-end' : 'ace-icon fa fa-angle-double-right bigger-140'
+		};
+		$('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+		var icon = $(this);
+		var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+			
+		if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+	})
+
+}
 
 

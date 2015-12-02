@@ -2,7 +2,7 @@ $(function($){
 	$.createQueryForm($('#query-form'), {
     	action: '',
     	method: 'post',
-    	number:'3', 	//text select每行的个数
+    	number:'2', 	//text select每行的个数
 //  	isTab: true,
     	x:4, 	//label 宽度
     	y:8,	//input 宽度 (text select)
@@ -12,9 +12,9 @@ $(function($){
       	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项'}, {key: '10002', value: '第二项'}]},
     	     { label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' },
     	     { label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' },
-    	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' },
-    	     { label: 'Radio ID3', x: '5', y: '7', name: 'test-radio', type: 'radio', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] },
-    	     { label: '测试checkbox', x: '5', y: '7', name: 'test-checkbox', type: 'checkbox', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] }
+//  	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' },
+//  	     { label: 'Radio ID3', x: '5', y: '7', name: 'test-radio', type: 'radio', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] },
+//  	     { label: '测试checkbox', x: '5', y: '7', name: 'test-checkbox', type: 'checkbox', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] }
     	],
     	buttons: [ 
     		{ id:'search', value:'查询', type:'primary'},
@@ -39,6 +39,8 @@ $(function($){
 	    	content:''
 	    });
 	});
+    
+   
     
     
 //  $('#myModal').on('shown.bs.modal', function () {
