@@ -10,7 +10,7 @@ Base.prototype.num="3";					//页面每行的控件个数
 Base.prototype.popGrid = "list";		//表格ID
 Base.prototype.popPager = "grid-pager";	//翻页ID
 
-Base.prototype.popButton = [{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}]; //弹出框按妞
+Base.prototype.popButton = null; /*[{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}];*/ //弹出框按妞
 
 
 Base.prototype.queryForm = "query-form"; //搜索框ID
@@ -53,7 +53,8 @@ Base.prototype.popLayer = function(text,btnList){
 	    buttons: this.popButton,
 	    tableID: table,
 	    pagerName: pager,
-	    content:''
+	    content:'',
+	    flag:false
 	});
 }
 
@@ -68,6 +69,7 @@ Base.prototype.popLayerWithTable = function(text,o){
 	    pagerName: this.popPager,
 	    content: div,
 	    _obj:o
+	    
 	});
 }
 
@@ -78,7 +80,7 @@ Base.prototype.gridInit = function(){
         datatype : "local",
         width: $("#"+ that.popGrid).parent().width(),
         autowidth: true,
-        height:350,
+//      height:350,
         colNames : [ 'Inv No', 'Date', 'Client', 'Amount', 'Tax','Total', 'Notes' ],
         colModel : [ 
                      {name : 'id',index : 'id',width : 60,sorttype : "int"}, 
@@ -90,8 +92,8 @@ Base.prototype.gridInit = function(){
                      {name : 'note',index : 'note',width : 150,sortable : false} 
                    ],
         multiselect : true,
-//      rowNum : 10,
-//      rowList: [10, 20, 30],
+        rowNum : 10,
+        rowList: [10, 20, 30],
         pager: "#"+ that.popPager,
 //      caption : "Manipulating Array Data"
 		loadComplete : function(){
@@ -99,22 +101,33 @@ Base.prototype.gridInit = function(){
 			setTimeout(function(){
 				that.gridPage(table);
 			}, 0);
+			var ids = jQuery("#" + that.popGrid).jqGrid('getDataIDs');
+			if(ids.length===0){
+		        $(".no-tableMsg").remove();
+		        $("#" + that.popGrid).parent().append('<div class="no-tableMsg"><img src="./img/warning.png" />没有符合条件的交易</div>');
+		    }				
 		}
       });
   	var mydata = [ 
-                 {id : "1",invdate : "2007-10-01",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
-                 {id : "2",invdate : "2007-10-02",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
-                 {id : "3",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
-                 {id : "4",invdate : "2007-10-04",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
-                 {id : "5",invdate : "2007-10-05",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
-                 {id : "6",invdate : "2007-09-06",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
-                 {id : "7",invdate : "2007-10-04",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
-                 {id : "8",invdate : "2007-10-03",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
-                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
-                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
-                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
-                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
-                 {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"} 
+//               {id : "1",invdate : "2007-10-01",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
+//               {id : "2",invdate : "2007-10-02",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
+//               {id : "3",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
+//               {id : "4",invdate : "2007-10-04",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
+//               {id : "5",invdate : "2007-10-05",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
+//               {id : "6",invdate : "2007-09-06",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
+//               {id : "7",invdate : "2007-10-04",name : "test",note : "note",amount : "200.00",tax : "10.00",total : "210.00"}, 
+//               {id : "8",invdate : "2007-10-03",name : "test2",note : "note2",amount : "300.00",tax : "20.00",total : "320.00"}, 
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"}, 
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"},
+//               {id : "9",invdate : "2007-09-01",name : "test3",note : "note3",amount : "400.00",tax : "30.00",total : "430.00"} 
                ];
   	for ( var i = 0; i <= mydata.length; i++){
     	jQuery("#"+ that.popGrid).jqGrid('addRowData', i + 1, mydata[i]);
