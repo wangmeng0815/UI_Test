@@ -44,7 +44,8 @@ $.createQueryForm = function (div, obj){
 				condition.append($.field.selected(value,num,obj.x,obj.y));//.appendTo(row);
 				row.append(condition);
 			}else if(value.type == 'date'){
-				condition.append($.field.selected(value,num,obj.x,obj.y));//
+				condition.append($.field.dates(value,num,obj.x,obj.y));//
+				row.append(condition);
 			}
 			
 		}else{ // (value.type=="checkbox"||value.type=="radio"){
@@ -81,18 +82,18 @@ $.createQueryForm = function (div, obj){
 
 $.field = {
 	text: function(f,n,x,y) {
-		var f_text =  "<div class='col-md-"+ n +" '>"  
-						+ "<label class='col-sm-"+ x +" control-label' for='form-field-1'> " + f.label + " </label>"
+		var f_text =  "<div class='col-md-"+ n +" no-padding'>"  
+						+ "<label class='col-md-"+ x +" control-label' for='form-field-1'> " + f.label + " </label>"
 				       	+ "<input type='"+ f.type +"' id='" + f.id + "' class='col-md-"+ y +"' name='" + f.name + "'/>"
 				      + "</div>";
 		
 		return $(f_text);
 	},
 	selected: function(f,n,x,y) {
-		var temp="<div class='col-md-"+ n +"'></div>"
+		var temp="<div class='col-md-"+ n +" no-padding'></div>"
 		var d = $(temp);
 		var label = "<label class='col-md-"+ x +" control-label' for='form-field-select-1'>" + f.label + "</label>";
-		var selected = $("<select class='col-md-"+ y +"' id='" + f.id + "' name='" + f.name + "'></select>");
+		var selected = $("<select class='col-md-"+ y +" no-margin-left' id='" + f.id + "' name='" + f.name + "'></select>");
 		selected.append($("<option value=''></option>"))
 		$.each(f.options, function(index, opt){
 			selected.append($("<option value='"+opt.key+"'>"+opt.value+"</option>"));
@@ -100,17 +101,18 @@ $.field = {
 		
 		return d.append(label).append(selected);
 	},
-	date: function(f,n,x,y){
-		var temp = "<div class='col-md-" + n + "'></div>";
+	dates: function(f,n,x,y){
+		
+		var temp = "<div class='col-md-" + n + " no-padding'></div>";
 		var d = $(temp);
 		var label = "<label class='col-md-" + x + " control-label'>" + f.label + "</label>";
-		var t = "<div class='col-md-" + y + "'></div>";
-		t.append($("<input type='text' id='' class='col-md-5'/>-<input type='text' id='' class='col-md-5' />"));
-		return temp.append(label).append(t);
+		var t = $("<div class='col-md-" + y + "'></div>");
+		t.append($("<input type='text' id='" + f.startID+ "' class='col-md-5' /><label style='float:left; line-height:30px;'>—</label><input type='text' id='" + f.endID + "' class='col-md-5' />"));
+		return d.append(label).append(t);
 	},
 	
 	checkbox: function(f,n) {
-		var d = $("<div class='col-md-"+ n +" '></div>");
+		var d = $("<div class='col-md-"+ n +" no-padding'></div>");
 		var label = "<label class='col-md-" + f.x + " control-label'>" + f.label + "</label>";
 		var checkDiv=$("<div class='col-md-" + f.y + "'></div>");
 		d.append(label);
@@ -125,7 +127,7 @@ $.field = {
 		return d.append(checkDiv);
 	},
 	radio : function(f,n){
-		var d = $("<div class='col-md-" + n + "'></div>");
+		var d = $("<div class='col-md-" + n + " no-padding'></div>");
 		var label = $("<label class='control-label col-md-"+ f.x +"'>" + f.label + "</label>");
 		var radioDiv = $("<div class='col-md-" + f.y + "'></div>");
 		d.append(label);

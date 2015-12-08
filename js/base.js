@@ -36,8 +36,8 @@ Base.prototype.initCondition = function(tab,strMethod,strAction){
     	method: 'post',
     	number:this.num, 	//text select每行的个数
     	isTab: tab,
-    	x:6, 	//label 宽度
-    	y:6,	//input 宽度 (text select)
+    	x:4, 	//label 宽度
+    	y:8,	//input 宽度 (text select)
     	z:4,	//radio 宽度  checkbox宽度=12-z
     	fieldModel: this.condition,
     	buttons: this.queryButton

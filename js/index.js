@@ -5,11 +5,12 @@ var temp2 = new Base();
 
 $(function($){
 	temp.condition = [
-      	     { label: 'User Name', name: 'user_name', type: 'text'},
+      	     { label: 'User Name', name: 'user_name', type: 'text',id:'au'},
       	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项'}, {key: '10002', value: '第二项'}]},
-    	     { label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' },
-    	     { label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' },
-    	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' }
+    	     { label: '时间测试', startID: 'start', endID:'end' , type: 'date'},
+    	     { label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' }
+//  	     { label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' },
+//  	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' }
 //  	     { label: 'Radio ID3', x: '5', y: '7', name: 'test-radio', type: 'radio', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] },
 //  	     { label: '测试checkbox', x: '5', y: '7', name: 'test-checkbox', type: 'checkbox', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] }
     	];
