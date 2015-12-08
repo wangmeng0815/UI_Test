@@ -106,7 +106,7 @@ $.field = {
 		var temp = "<div class='col-md-" + n + " no-padding'></div>";
 		var d = $(temp);
 		var label = "<label class='col-md-" + x + " control-label'>" + f.label + "</label>";
-		var t = $("<div class='col-md-" + y + "'></div>");
+		var t = $("<div class='col-md-" + y + " no-padding-left'></div>");
 		t.append($("<input type='text' id='" + f.startID+ "' class='col-md-5' /><label style='float:left; line-height:30px;'>—</label><input type='text' id='" + f.endID + "' class='col-md-5' />"));
 		return d.append(label).append(t);
 	},
