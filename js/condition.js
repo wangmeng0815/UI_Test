@@ -43,6 +43,8 @@ $.createQueryForm = function (div, obj){
 			}else if(value.type == 'selected'){
 				condition.append($.field.selected(value,num,obj.x,obj.y));//.appendTo(row);
 				row.append(condition);
+			}else if(value.type == 'date'){
+				condition.append($.field.selected(value,num,obj.x,obj.y));//
 			}
 			
 		}else{ // (value.type=="checkbox"||value.type=="radio"){
@@ -86,7 +88,6 @@ $.field = {
 		
 		return $(f_text);
 	},
-	
 	selected: function(f,n,x,y) {
 		var temp="<div class='col-md-"+ n +"'></div>"
 		var d = $(temp);
@@ -98,6 +99,14 @@ $.field = {
 		});
 		
 		return d.append(label).append(selected);
+	},
+	date: function(f,n,x,y){
+		var temp = "<div class='col-md-" + n + "'></div>";
+		var d = $(temp);
+		var label = "<label class='col-md-" + x + " control-label'>" + f.label + "</label>";
+		var t = "<div class='col-md-" + y + "'></div>";
+		t.append($("<input type='text' id='' class='col-md-5'/>-<input type='text' id='' class='col-md-5' />"));
+		return temp.append(label).append(t);
 	},
 	
 	checkbox: function(f,n) {
