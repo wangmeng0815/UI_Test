@@ -1193,7 +1193,9 @@ if (typeof jQuery === 'undefined') {
     return scrollbarWidth
   }
 
-
+  Modal.prototype.removeModal = function(){
+  	
+  }
   // MODAL PLUGIN DEFINITION
   // =======================
 

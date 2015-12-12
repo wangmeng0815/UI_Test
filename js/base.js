@@ -6,18 +6,21 @@
  */
 function Base(){}
 
-Base.prototype.num="3";					//页面每行的控件个数
+/*表格部分 属性*/
 Base.prototype.popGrid = "list";		//表格ID
 Base.prototype.popPager = "grid-pager";	//翻页ID
 
+/* 弹出框部分 属性 */
+Base.prototype.layer = "myModal";
 Base.prototype.popButton = null; /*[{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}];*/ //弹出框按妞
 
-
+/* 搜索框部分 属性  */
+Base.prototype.num="3";					//页面每行的控件个数
 Base.prototype.queryForm = "query-form"; //搜索框ID
 Base.prototype.queryButton = [ { id:'search', value:'查询', type:'primary'},{ id:'reset', value:'重置', type:'reset'}];
 Base.prototype.condition = [
       	     { label: 'User Name', name: 'user_name', type: 'text'},
-      	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项'}, {key: '10002', value: '第二项'}]},
+      	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项',select:true}, {key: '10002', value: '第二项'}]},
     	     { label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' },
     	     { label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' },
     	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' },
@@ -46,23 +49,24 @@ Base.prototype.initCondition = function(tab,strMethod,strAction){
 };
 
 //弹出框(不带表格)
-Base.prototype.popLayer = function(text,btnList){
+Base.prototype.popLayer = function(text){
 	
 	$.popLayer({
+		layer ：this.layer,
 	    title : text,
 	    buttons: this.popButton,
-	    tableID: table,
-	    pagerName: pager,
-	    content:'',
-	    flag:false
+	    tableID: "temp",
+	    pagerName: "temp",
+	    content:''
 	});
 }
 
 //弹出框 (带表格  带查询)
 Base.prototype.popLayerWithTable = function(text,o){
 	var div = "<div id='"+ this.queryForm +"' class='deline'></div>";
-	
+
 	$.popLayer({
+		layer ：this.layer,
 	    title : text,
 	    buttons: this.popButton,
 	    tableID: this.popGrid,

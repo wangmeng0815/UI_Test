@@ -96,7 +96,12 @@ $.field = {
 		var selected = $("<select class='col-md-"+ y +" no-margin-left' id='" + f.id + "' name='" + f.name + "'></select>");
 		selected.append($("<option value=''></option>"))
 		$.each(f.options, function(index, opt){
-			selected.append($("<option value='"+opt.key+"'>"+opt.value+"</option>"));
+			if(opt.select){
+				selected.append($("<option value='"+opt.key+"' selected = 'selected'>"+opt.value+"</option>"));
+			}else{
+				selected.append($("<option value='"+opt.key+"'>"+opt.value+"</option>"));
+			}
+			
 		});
 		
 		return d.append(label).append(selected);
@@ -107,7 +112,7 @@ $.field = {
 		var d = $(temp);
 		var label = "<label class='col-md-" + x + " control-label'>" + f.label + "</label>";
 		var t = $("<div class='col-md-" + y + " no-padding-left'></div>");
-		t.append($("<input type='text' id='" + f.startID+ "' class='col-md-5' /><label style='float:left; line-height:30px; margin:0 5px;'>—</label><input type='text' id='" + f.endID + "' class='col-md-5' />"));
+		t.append($("<input type='text' id='" + f.startID+ "' class='col-md-5' style='min-width:90px;' /><label style='float:left; line-height:30px; margin:0 5px;'>—</label><input type='text' id='" + f.endID + "' class='col-md-5' style='min-width:90px;' />"));
 		return d.append(label).append(t);
 	},
 	

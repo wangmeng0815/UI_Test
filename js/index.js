@@ -4,10 +4,11 @@ var temp1 = new Base();
 var temp2 = new Base();
 
 $(function($){
+	temp.num = 3;
 	temp.condition = [
       	     { label: 'User Name', name: 'user_name', type: 'text',id:'au'},
-      	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项'}, {key: '10002', value: '第二项'}]},
-    	     { label: '时间测试', startID: 'start', endID:'end' , type: 'date'},
+      	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项',select:true}, {key: '10002', value: '第二项'}]},
+    	     { label: '时间测试', startID: 'startTime', endID:'endTime' , type: 'date'},
     	     { label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' },
     	     { label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' },
     	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' }
@@ -28,7 +29,7 @@ $(function($){
     	     	{ label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' },
     	     	{ label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' }
     	     	];
-		temp1.buttons = [{id:'ceshi',style:'btn',value:'测试'}];
+		temp1.popButton = [{id:'ceshi',style:'btn',value:'测试',bClose:true},{id:'zhixing',style:'btn-primary',value:'执行'}];
 		//弹出框
 		temp1.popLayerWithTable("测试弹出框",temp1);
 	});
@@ -46,7 +47,7 @@ $(function($){
     	     	{ label: '测试B', name: 'login_id', type: 'text', id:'a2' },
     	     	{ label: '测试C', name: 'login_id', type: 'text', id:'a3' }
     	     	];
-    	temp2.buttons = [{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}];
+    	temp2.popButton = [{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}];
 		temp2.popLayerWithTable("测试弹出框2",temp2);
 		
 
@@ -64,57 +65,30 @@ $(function($){
     	temp.gritter("测试失败");
     });
 	
+	$("#btn5").on("click",function(){
+		temp.popLayer("测试不带表格弹出框");
+	})
 	
+	$.fn.datepicker.defaults.format = "yyyy-mm-dd";
+	$('#startTime').datepicker({
+		todayBtn: true,
+		//startDate: '0d',
+		autoclose:true,
+		todayHighlight: true,
+		language: 'cn'
+	});
+
+	$('#endTime').datepicker({
+		todayBtn: true,
+		//startDate: '0d',
+		autoclose:true,
+		todayHighlight: true,
+		language: 'cn'
+	});
 	
-	
-//	$.createQueryForm($('#query-form'), {
-//  	action: '',
-//  	method: 'post',
-//  	number:'2', 	//text select每行的个数
-////  	isTab: true,
-//  	x:4, 	//label 宽度
-//  	y:8,	//input 宽度 (text select)
-//  	z:4,	//radio 宽度  checkbox宽度=12-z
-//  	fieldModel: [
-//    	     { label: 'User Name', name: 'user_name', type: 'text'},
-//    	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项'}, {key: '10002', value: '第二项'}]},
-//  	     { label: 'Login ID1', name: 'login_id', type: 'text', id:'a1' },
-//  	     { label: 'Login ID2', name: 'login_id', type: 'text', id:'a2' },
-////  	     { label: 'Login ID4', name: 'login_id', type: 'text', id:'a4' },
-////  	     { label: 'Radio ID3', x: '5', y: '7', name: 'test-radio', type: 'radio', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] },
-////  	     { label: '测试checkbox', x: '5', y: '7', name: 'test-checkbox', type: 'checkbox', options:[{id:"1",value:'测试1'}, {id: "2", value: '测试2'}] }
-//  	],
-//  	buttons: [ 
-//  		{ id:'search', value:'查询', type:'primary'},
-//  		{ id:'reset', value:'重置', type:'reset'}
-//  	]
-//  });
-//  
-////  jQuery("#list2").jqGrid({ 
-////  	url:'server.php?q=2', 
-////  	datatype: "json", 
-////  	colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'], 
-////  	colModel:[ 
-////  		{name:'id',index:'id', width:55}, 
-////  		{name:'invdate',index:'invdate', width:90}, 
-////  		{name:'name',index:'name asc, invdate', width:100}, {name:'amount',index:'amount', width:80, align:"right"}, {name:'tax',index:'tax', width:80, align:"right"}, {name:'total',index:'total', width:80,align:"right"}, {name:'note',index:'note', width:150, sortable:false} ], rowNum:10, rowList:[10,20,30], pager: '#pager2', sortname: 'id', viewrecords: true, sortorder: "desc", caption:"JSON Example" }); jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
-////  
-//	$(".btn-primary").click(function(){
-//		$.popLayer({
-//	    	title : 'asdasfdsfdsfd',
-//	    	button:[{id:'confirm',style:'btn-primary',value:'确定'},{id:'confirm1',style:'btn-primary',value:'确定'}],
-//	    	tableID:"list4",
-//	    	content:''
-//	    });
-//	});
-    
-   
-    
-    
-//  $('#myModal').on('shown.bs.modal', function () {
-//		$('#myInput').focus()
-//	})
-//  
+	$(document).on("click","#zhixing",function(){
+	    $('#myModal').modal('hide');
+	});
 	
 });
 

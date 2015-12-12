@@ -7,6 +7,7 @@
 	$.extend({
 		popLayer : function(options) {
 			var defaults = {
+				layer : 'myModal',
 				style : 'modal-lg',//
 				title : null,
 				tableID: "temp",
@@ -20,7 +21,7 @@
 			
 			
 			$(document.body).addClass("modal-open");
-			$('#myModal').modal('show');
+			$('#' + defaults.layer).modal('show');
 		}
 	});
 	/**
@@ -30,7 +31,7 @@
 		var defaults={};
 		$.extend(defaults, options);
 		
-		var myModel = $("<div id='myModal' class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel'></div>");
+		var myModel = $("<div id='" + defaults.layer + "' class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel'></div>");
 		
 		var modelDialog = $("<div class='modal-dialog "+ defaults.style +"'></div>");
 		
@@ -70,10 +71,16 @@
 			defaults._obj.gridInit();
 		}
 		
+		
 		if(defaults.buttons){
 			var modelFooter = $("<div class='modal-footer'></div>");
 			$.each(defaults.buttons, function(index, obj){
-				var btnConfirm = $("<button id='"+ obj.id +"' type='button' class='btn " + obj.style + "' data-dismiss='modal'>"+ obj.value +"</button>");
+				var btnConfirm;
+				if(obj.bClose){
+					btnConfirm = $("<button id='"+ obj.id +"' type='button' class='btn " + obj.style + "' data-dismiss='modal'>"+ obj.value +"</button>");
+				}else{
+					btnConfirm = $("<button id='"+ obj.id +"' type='button' class='btn " + obj.style + "'>"+ obj.value +"</button>");
+				}
 				
 				btnConfirm.appendTo(modelFooter);
 				
@@ -92,4 +99,5 @@
 //	})
 	
 })(jQuery);
+
 
