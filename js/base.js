@@ -11,7 +11,8 @@ Base.prototype.popGrid = "list";		//表格ID
 Base.prototype.popPager = "grid-pager";	//翻页ID
 
 /* 弹出框部分 属性 */
-Base.prototype.layer = "myModal";
+Base.prototype.alayer = "myModal";
+//Base.prototype.style = "modal-lg"; 
 Base.prototype.popButton = null; /*[{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}];*/ //弹出框按妞
 
 /* 搜索框部分 属性  */
@@ -50,10 +51,10 @@ Base.prototype.initCondition = function(tab,strMethod,strAction){
 
 //弹出框(不带表格)
 Base.prototype.popLayer = function(text){
-	
 	$.popLayer({
-		layer ：this.layer,
 	    title : text,
+	    alayer : this.alayer,
+	    style : this.style,
 	    buttons: this.popButton,
 	    tableID: "temp",
 	    pagerName: "temp",
@@ -62,12 +63,13 @@ Base.prototype.popLayer = function(text){
 }
 
 //弹出框 (带表格  带查询)
-Base.prototype.popLayerWithTable = function(text,o){
+Base.prototype.popLayerWithTable = function(text,o,css){
 	var div = "<div id='"+ this.queryForm +"' class='deline'></div>";
 
 	$.popLayer({
-		layer ：this.layer,
 	    title : text,
+	    alayer :this.alayer,
+		style : this.style,
 	    buttons: this.popButton,
 	    tableID: this.popGrid,
 	    pagerName: this.popPager,

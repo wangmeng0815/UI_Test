@@ -2,9 +2,9 @@
 var temp = new Base();
 var temp1 = new Base();
 var temp2 = new Base();
-
 $(function($){
 	temp.num = 3;
+	
 	temp.condition = [
       	     { label: 'User Name', name: 'user_name', type: 'text',id:'au'},
       	     { label: '下拉列表', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项',select:true}, {key: '10002', value: '第二项'}]},
@@ -22,7 +22,7 @@ $(function($){
 	$("#btn1").click(function(){
 		temp1.queryForm = "test-div1";
 		temp1.num = "2";
-		
+		temp1.style = "modal-sm";
 		temp1.condition = [
 				{ label: 'User Name', name: 'user_name', type: 'text'},
       	     	{ label: '下拉列表1', name: 'item_name', type: 'selected', options: [{key: '10001', value: '第一项'}, {key: '10002', value: '第二项'}]},
@@ -31,7 +31,7 @@ $(function($){
     	     	];
 		temp1.popButton = [{id:'ceshi',style:'btn',value:'测试',bClose:true},{id:'zhixing',style:'btn-primary',value:'执行'}];
 		//弹出框
-		temp1.popLayerWithTable("测试弹出框",temp1);
+		temp1.popLayerWithTable("测试弹出框",temp1,"modal-sm");
 	});
     
     $("#btn2").on("click",function(){
@@ -66,7 +66,17 @@ $(function($){
     });
 	
 	$("#btn5").on("click",function(){
-		temp.popLayer("测试不带表格弹出框");
+//		temp3.style = "small";
+//		temp.popLayer("测试不带表格弹出框");
+		$.popLayer({
+		    title : "ceshi ",
+		    buttons: [{id:'cancel',style:'btn',value:'取消'},{id:'confirm',style:'btn-primary',value:'确定'}],
+		    tableID: "temp",
+		    pagerName: "temp",
+		    content:''
+		});
+
+
 	})
 	
 	$.fn.datepicker.defaults.format = "yyyy-mm-dd";

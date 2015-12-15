@@ -1076,7 +1076,7 @@ if (typeof jQuery === 'undefined') {
 
   Modal.prototype.hideModal = function () {
     var that = this
-    this.$element.remove()   //Editor:wm ,time:2015-11-20 ,Original:.hide();
+    this.$element.remove();   //Editor:wm ,time:2015-11-20 ,Original:.hide();
     this.backdrop(function () {
       that.$body.removeClass('modal-open')
       that.resetAdjustments()
@@ -1193,9 +1193,7 @@ if (typeof jQuery === 'undefined') {
     return scrollbarWidth
   }
 
-  Modal.prototype.removeModal = function(){
-  	
-  }
+
   // MODAL PLUGIN DEFINITION
   // =======================
 

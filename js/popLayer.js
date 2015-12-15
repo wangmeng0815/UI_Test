@@ -7,7 +7,7 @@
 	$.extend({
 		popLayer : function(options) {
 			var defaults = {
-				layer : 'myModal',
+				alayer : 'myModal',
 				style : 'modal-lg',//
 				title : null,
 				tableID: "temp",
@@ -21,19 +21,23 @@
 			
 			
 			$(document.body).addClass("modal-open");
-			$('#' + defaults.layer).modal('show');
+			$('#' + defaults.alayer).modal('show');
 		}
 	});
 	/**
 	 * 创建弹出层
 	 */
-	var createlayer = function(options){
-		var defaults={};
-		$.extend(defaults, options);
+	var createlayer = function(defaults){
+//		var defaults={};
+//		$.extend(defaults, options);
 		
-		var myModel = $("<div id='" + defaults.layer + "' class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel'></div>");
+		var myModel = $("<div id='" + defaults.alayer + "' class='modal fade bs-example-"+ defaults.style +"' tabindex='-1' role='dialog' ></div>");
 		
 		var modelDialog = $("<div class='modal-dialog "+ defaults.style +"'></div>");
+		
+//		var myModel = $("<div id='myModal' class='modal fade bs-example-modal-lg' tabindex='-1' role='dialog' aria-labelledby='myLargeModalLabel'></div>");
+//		
+//		var modelDialog = $("<div class='modal-dialog modal-lg'></div>");
 		
 		var Content = $("<div class='modal-content'></div>");
 		
