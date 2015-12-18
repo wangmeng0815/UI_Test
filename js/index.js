@@ -79,16 +79,25 @@ $(function($){
 
 	})
 	
-	$.fn.datepicker.defaults.format = "yyyy-mm-dd";
-	$('#startTime').datepicker({
-		todayBtn: true,
-		//startDate: '0d',
-		autoclose:true,
-		todayHighlight: true,
-		language: 'cn'
+	//$.fn.datepicker.defaults.format = "yyyy-mm-dd";
+	$('#startTime').datetimepicker({
+		format: 'yyyy-mm-dd hh:ii'
 	});
-
-	$('#endTime').datepicker({
+//	$('#startTime').datepicker({
+//		format:"yyyy-mm-dd hh:ii:ss",
+//		todayBtn: true,
+//		//startDate: '0d',
+//		autoclose:true,
+//		todayHighlight: true,
+//		language: 'cn'
+//	});
+	$('#startTime').datetimepicker({
+		defaultDate: getNowDate(),
+        format: 'YYYY-MM-DD HH:mm:ss',
+        locale: "zh-cn"
+    });
+	$('#endTime').datetimepicker({
+		format:"yyyy-mm-dd hh:ii:ss",
 		todayBtn: true,
 		//startDate: '0d',
 		autoclose:true,
